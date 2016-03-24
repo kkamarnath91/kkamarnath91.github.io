@@ -1,6 +1,10 @@
 <html>
 <body>
 <head>
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+  
   <style>
     a{
       font-size: 25px;
@@ -10,6 +14,38 @@
       background-color: red;
     }
   </style>
+  <script>
+      var dataLayer;
+      $(document).ready(function () {
+        //
+        // Initialize map from CartoDB: create the map and store the data layer for later
+        //
+        cartodb.createVis('map', 'https://amark490.cartodb.com/api/v2/viz/fe5459de-f06f-11e5-a9ca-0ecfd53eb7d3/viz.json')
+          .done(function (vis, layers) {
+            // Store the data layer for later:
+            //  * layers[0] is the base layer (eg OpenStreetMap)
+            //  * layers[1] is where all of your data layers go, and they're stored as "sublayers". The first one is numbered 0, the second is 1, etc. In this case we're getting the first sublayer.
+            dataLayer = layers[1].getSubLayer(0);
+          });
+
+        //
+        // Initialize the borough picker: add an event handler to watch for changes
+        //
+        $('.neighbourhood-picker').change(function () {
+          var neighbourhood = $(this).val();
+          var sql;
+          if (neighbourhood === 'all') {
+            // if borough is 'all', reset SQL to the original
+            sql = "SELECT * FROM listings_1 1";
+          }
+          else {
+            // else, select only features with the borough field set to the chosen borough
+            sql = "SELECT * FROM listings_1 1 WHERE neighbourhood = '" + neighbourhood + "'";
+          }
+          dataLayer.setSQL(sql);
+        });
+      });
+    </script>
 </head>
 <h1>Assignment 5 Part 3: Air BnB</h1>
 
@@ -31,7 +67,7 @@ https://amark490.cartodb.com/api/v2/viz/fe5459de-f06f-11e5-a9ca-0ecfd53eb7d3/viz
 </ul>
 
 
-<form action="Neighborhood.php">
+<form action="Neighbourhood.php">
     <select name="all">
         <option>Astoria</option>
         <option>Long Island City</option>
