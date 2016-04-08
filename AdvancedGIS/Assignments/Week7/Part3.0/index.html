@@ -4,7 +4,21 @@
   <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
   <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+  $(document).ready(function () {
+  // Use jQuery to call the SQL API
+  var url = 'https://eric.cartodb.com/api/v2/sql?' + $.param({
+    q: 'SELECT AVG(price) FROM listings'
+  });
   
+  $.getJSON(url)
+    
+    // When it's done it will pass the parsed response in data
+    .done(function (data) {
+      $('.average').text(data.rows[0].avg);
+    });
+});
   <style>
     a{
       font-size: 25px;
