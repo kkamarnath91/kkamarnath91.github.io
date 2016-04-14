@@ -15,16 +15,68 @@
         padding: 0;
         width: 100%;
       }
+
       #map {
         height: 100%;
         width: 100%;
       }
+      
+      /* Customize the infowindow CSS */
+      div.cartodb-popup.v2 div.cartodb-popup-content-wrapper {
+        background: black;
+        color: white;
+      }
+      
+      div.cartodb-popup.v2:before {
+        border-top-color: black;
+      }
+      
+      div.cartodb-popup p {
+        color: white;
+      }
+    </style>
+
+    <!--
+
+    Custom infowindow template. You can customize this as much as you
+    need to. You can still use {{ my_field }} to get data out of your
+    tables. Make sure you enable the fields in your map's 
+    infowindows.
+
+
+    See: 
+
+      http://docs.cartodb.com/tutorials/custom_interactivity/
+      http://bl.ocks.org/michellechandra/96d9a6ab39dcb0f4172a
+
+    -->
+    <script type="infowindow/html" id="infowindow_template">
+      <div class="cartodb-popup v2">
+        <a href="#close" class="cartodb-popup-close-button close">x</a>
+         <div class="cartodb-popup-content-wrapper">
+           <div>{{vehicle_type_code_1}} vs {{vehicle_type_code_2}}</div>
+           <div class="cartodb-popup-content">
+             <iframe width="100%" height="100%" src="https://www.youtube.com/embed/oWc-hb67dLM" frameborder="0" allowfullscreen></iframe>
+           </div>
+         </div>
+         <div class="cartodb-popup-tip-container"></div>
+      </div>
+    </script>
 
     <script>
       $(document).ready(function () {
         cartodb.createVis('map', 'https://amark490.cartodb.com/api/v2/viz/f15ade16-da84-11e5-a94a-0e787de82d45/viz.json')
           .done(function (vis, layers) {
             var dataLayer = layers[1].getSubLayer(0);
+          var dataLayer = layers[1].getSubLayer(1);
+            // Tell CartoDB it's okay if there are embedded videos and other
+            // files in our infowindow template
+            dataLayer.infowindow.set('sanitizeTemplate', 'false');
+          
+            // Tell CartoDB to use our template from above
+            dataLayer.infowindow.set('template', $('#infowindow_template').html());
+          });
+      });
     </script>
   </head>
   <body>
