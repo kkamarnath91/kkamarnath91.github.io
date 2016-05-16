@@ -16,7 +16,7 @@
         width: 100%;
       }
 
-      #map {
+      .map {
         height: 500px;
         width: 100%;
       }
@@ -34,7 +34,7 @@
         //
         // Initialize map from CartoDB: create the map and store the data layer for later
         //
-        cartodb.createVis('map', 'https://amark490.cartodb.com/api/v2/viz/e4adf5da-0758-11e6-8ee2-0e787de82d45/viz.json')
+        cartodb.createVis('map1', 'https://amark490.cartodb.com/api/v2/viz/e4adf5da-0758-11e6-8ee2-0e787de82d45/viz.json')
           .done(function (vis, layers) {
             // Store the data layer for later:
             //  * layers[0] is the base layer (eg OpenStreetMap)
@@ -56,7 +56,7 @@
     </script>
   </head>
   <body>
-    <div id="map"></div>
+    <div id="map1" class="map"></div>
     <div class="sl_districtbankchange-checkbox-wrapper">
       <input type="checkbox" class="sl_districtbankchange-checkbox">Districts With Expansion > 35% and Density > 13
     </div>
