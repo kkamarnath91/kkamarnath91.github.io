@@ -41,6 +41,7 @@
             //  * layers[1] is where all of your data layers go, and they're stored as "sublayers". The first one is numbered 0, the second is 1, etc. In this case we're getting the first sublayer.
             dataLayer = layers[1].getSubLayer(2);
           });
+        cartodb.createVis('map2', 'https://amark490.cartodb.com/api/v2/viz/c0185c24-12f7-11e6-9560-0ea31932ec1d/viz.json');
 
         //
         // Initialize the checkbox: add an event handler to watch for change
@@ -60,5 +61,6 @@
     <div class="sl_districtbankchange-checkbox-wrapper">
       <input type="checkbox" class="sl_districtbankchange-checkbox">Districts With Expansion > 35% and Density > 13
     </div>
+   <div id="map2" class="map"></div>
   </body>
 </html>
