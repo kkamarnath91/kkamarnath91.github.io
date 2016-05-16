@@ -1,37 +1,45 @@
-<!DOCTYPE html>
 <html>
-  <head>
-<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-    <!--
-    Load CartoDB's code so we can pull in our CartoDB maps.
-    -->
-    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+<body>
+<head>
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
-    
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-      }
 
-      #map {
-        height: 100%;
-        width: 100%;
-      }
-    </style>
-
-    <script>
-      //
-      // Initialize map from CartoDB
-      //
+  <style>
+    a{
+      font-size: 25px;
+      color: orange;
+    }
+    ul{
+      background-color: red;
+    }
+  </style>
+  <script>
+      var dataLayer;
       $(document).ready(function () {
-        cartodb.createVis('map', 'https://amark490.cartodb.com/api/v2/viz/c0185c24-12f7-11e6-9560-0ea31932ec1d/viz.json');
-      });
+        //
+        // Initialize map from CartoDB: create the map and store the data layer for later
+        //
+        cartodb.createVis('map', 'https://amark490.cartodb.com/api/v2/viz/c0185c24-12f7-11e6-9560-0ea31932ec1d/viz.json')
+          .done(function (vis, layers) {
+            // Store the data layer for later:
+            //  * layers[0] is the base layer (eg OpenStreetMap)
+            //  * layers[1] is where all of your data layers go, and they're stored as "sublayers". The first one is numbered 0, the second is 1, etc. In this case we're getting the first sublayer.
+            dataLayer = layers[1].getSubLayer(0);
+          });
     </script>
-  </head>
-  <body>
-    <div id="map"></div>
-  </body>
+</head>
+<h1>Sri Lanka's Post-War Debt</h1>
+
+<p><a href="https://www.youtube.com/watch?v=evATZwWgqrw”>
+    "Comments On Sri Lanka's 2016 Budget" <em>Ahilan Kadirgamar</em>
+</a></p>
+
+<p></p><a href="http://www.sundaytimes.lk/141207/news/north-in-a-debt-trap-131679.html target= “_blank”>
+    "Sri Lanka's Northern Debt Trap" <em>Sunday Times</em>
+</a></p>
+
+<div id="map"></div>
+
+  
 </html>
