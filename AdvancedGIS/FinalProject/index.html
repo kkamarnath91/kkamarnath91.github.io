@@ -41,45 +41,16 @@
             //  * layers[1] is where all of your data layers go, and they're stored as "sublayers". The first one is numbered 0, the second is 1, etc. In this case we're getting the first sublayer.
             dataLayer = layers[1].getSubLayer(0);
           });
-        
-        //
-        // Update the SQL by looking at all the checkboxes and creating the SQL with all of them.
-        //
-        function updateSql() {
-          // Start with assuming we'll select everything
-          var sql = "SELECT * FROM nypd_motor_vehicle_collisions_june_2015";
-          
-          // This will be the list of conditions, if anything's selected
-          var whereConditions = [];
-          
-          // If Queens is checked add a where condition
-          if ($('.queens-checkbox').is(':checked')) {
-            whereConditions.push("borough = 'QUEENS'");
-          }
-          
-          // If Bronx is checked add another where condition
-          if ($('.bronx-checkbox').is(':checked')) {
-            whereConditions.push("borough = 'BRONX'");
-          }
-          
-          // If anything was checked, add "WHERE" and combine all of the conditions with "OR"
-          if (whereConditions.length > 0) {
-            sql += ' WHERE ' + whereConditions.join(' OR ');
-          }
-          
-          // Log out the SQL to ensure we have something that will work
-          console.log(sql);
-          dataLayer.setSQL(sql);
-        }
 
         //
-        // Initialize the checkboxes: add an event handler to watch for change
+        // Initialize the checkbox: add an event handler to watch for change
         //
-        $('.queens-checkbox').change(function () {
-          updateSql();
-        });
-        $('.bronx-checkbox').change(function () {
-          updateSql();
+        $('.sl_districtbankchange-checkbox').change(function () {
+          var sql = "SELECT * FROM sl_districtbankchange";
+          if ($(this).is(':checked')) {
+            sql = SELECT * FROM sl_districtbankchange WHERE (banden2014 >= 14) AND (bankchange >= 35);
+          }
+          dataLayer.setSQL(sql);
         });
       });
     </script>
@@ -87,8 +58,7 @@
   <body>
     <div id="map"></div>
     <div class="queens-checkbox-wrapper">
-      <input type="checkbox" class="queens-checkbox">Queens
-      <input type="checkbox" class="bronx-checkbox">Bronx
+      <input type="checkbox" class="queens-checkbox">just Queens
     </div>
   </body>
 </html>
