@@ -48,7 +48,7 @@
         $('.sl_districtbankchange-checkbox').change(function () {
           var sql = "SELECT * FROM sl_districtbankchange";
           if ($(this).is(':checked')) {
-            sql = SELECT * FROM sl_districtbankchange WHERE (banden2014 >= 14) AND (bankchange >= 35);
+            sql = "SELECT * FROM sl_districtbankchange WHERE (banden2014 >= 14) AND (bankchange >= 35)";
           }
           dataLayer.setSQL(sql);
         });
